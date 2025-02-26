@@ -3,6 +3,8 @@ package io.hexlet;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UserDAO {
@@ -53,6 +55,7 @@ public class UserDAO {
         }
     }
 
+    // Delete record by id
     public void delete(Long id) throws SQLException {
          var sql = "DELETE FROM users WHERE id = ?";
           try (var stmt = connection.prepareStatement(sql)) {
@@ -63,19 +66,38 @@ public class UserDAO {
     }
 
     public void show() throws SQLException {
-        var sql5 = "SELECT * FROM users";
+        var sql = "SELECT * FROM users";
         try (var statement = connection.createStatement()) {
-            var resultSet = statement.executeQuery(sql5);
+            var resultSet = statement.executeQuery(sql);
             System.out.println("Print table Users:");
             while (resultSet.next()) {
                 System.out.print(resultSet.getString("username") + "  ");
                 System.out.println(resultSet.getString("phone"));
             }
             System.out.println();
-            }
+        }
 
     }
 
-
+    public List<User> getEntities() throws SQLException {
+        List<User> result = new ArrayList();
+        long id;
+        String username;
+        String phone;
+        var sql = "SELECT * FROM users";
+        try (var statement = connection.createStatement()) {
+            var resultSet = statement.executeQuery(sql);
+           // if (resultSet.next()) {
+            while (resultSet.next()) {
+                id = resultSet.getLong("id");
+                username = resultSet.getString("username");
+                phone = resultSet.getString("phone");
+                result.add(new User(username, phone, id));
+            }
+                return result;
+            //}
+        }
+       // return result;
+    }
 
 }

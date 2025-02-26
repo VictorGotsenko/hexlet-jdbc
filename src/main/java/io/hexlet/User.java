@@ -1,9 +1,9 @@
 package io.hexlet;
 
 public class User {
-    String name;
-    String phone;
-    Long id;
+    private String name;
+    private String phone;
+    private Long id;
 
     public User(String name, String phone) {
         this.name = name;

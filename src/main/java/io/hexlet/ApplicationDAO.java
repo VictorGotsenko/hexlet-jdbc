@@ -45,6 +45,9 @@ public class ApplicationDAO {
             if (user8.getId() == user.getId()) { //true
                 System.out.println("true");
             }
+
+            var t = dao.getEntities();
+            int i = 0;
         }
 
     }
